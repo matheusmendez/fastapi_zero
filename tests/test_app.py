@@ -12,9 +12,30 @@ def test_root_deve_retornar_ok_e_ola_mundo():
     - A: Act - Executa a coisa (SUT)
     - A: Assert - Garanta que A e A
     """
-    client = TestClient(app)  # Arrange
+    # Arrange
+    client = TestClient(app)
 
-    response = client.get('/')  # Act
+    # Act
+    response = client.get('/')
 
-    assert response.status_code == HTTPStatus.OK  # Assert
-    assert response.json() == {'message': 'Olá Mundo!'}  # Assert
+    # Assert
+    assert response.status_code == HTTPStatus.OK
+    assert response.json() == {'message': 'Olá Mundo!'}
+
+
+def test_root_deve_retornar_ok_e_ola_mundo_html():
+    client = TestClient(app)
+
+    response = client.get('/hello')
+
+    assert response.status_code == HTTPStatus.OK
+    assert response.text == """
+    <html>
+        <head>
+            <title>Exercício Aula 02</title>
+        </head>
+        <body>
+            <h1>olá mundo</h1>
+        </body>
+    </html>
+    """
